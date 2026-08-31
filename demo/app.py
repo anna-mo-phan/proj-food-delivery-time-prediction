@@ -17,7 +17,7 @@ import pandas as pd
 import streamlit as st
 import shap
 import matplotlib.pyplot as plt
-from catboost import CatBoostRegressor
+import pickle
 
 # ------------------------------------------------------------------
 # CONFIG — edit this section to match your project
@@ -57,8 +57,8 @@ st.set_page_config(page_title="Delivery Time Predictor", layout="wide")
 
 @st.cache_resource
 def load_model():
-    model = CatBoostRegressor()
-    model.load_model(MODEL_PATH)
+    with open(MODEL_PATH, "rb") as f:
+        model = pickle.load(f)
     return model
 
 
